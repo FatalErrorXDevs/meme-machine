@@ -1,16 +1,25 @@
 const Discord = require('discord.js');
-var bot = new Discord.Client();
+var bot = new Discord.Client({autoReconnect:true});
 const Config = require('config')
+const MessageHandler = require('./MessageHandler.js');
 
 
-bot.login(Config.get('token'));
+class SoundBot extends Discord.Client{
+constructor(){
+    super();
+    this.messageHandler = new MessageHandler(this);
+    this.login(Config.get('token'));
+    this._addEventListeners();
+}
 
-bot.on("ready", () => {
-  console.log("I am ready!");
-});
+  _addEventListeners(){
+    this.on('message',this._messageListener);
+}
 
-bot.on("message", (message) => {
-    if(message.author.username !== bot.user.username && message.content.startsWith("!")) {
-    message.channel.send("!pong!");
+  _messageListener(message) {
+    if (message.channel instanceof Discord.DMChannel) return; // Abort when DM
+    if (!message.content.startsWith('!')) return; // Abort when not prefix
+    this.messageHandler.handle(message);
   }
-});
+}
+module.exports = new SoundBot();
