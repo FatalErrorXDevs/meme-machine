@@ -17,7 +17,7 @@ class MessageHandler {
                 return;
             }
             if(message.content.startsWith('!add')){
-                message.reply("not implemented? " + message.content);
+                Util.addSounds(message.attachments, message.channel);
                 return;
             }
             else{

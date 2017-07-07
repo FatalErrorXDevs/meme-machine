@@ -1,11 +1,11 @@
 const fs = require('fs');
 const https = require('https');
+const config = require('config');
 
 class Util{
 constructor(){
 
 }
-
   commandsList() {
     return [
       '```',
@@ -20,25 +20,37 @@ constructor(){
       '```'
     ].join('\n');
   }
-
     addSounds(attachments, channel) {
     attachments.forEach(attachment => this._addSound(attachment, channel));
   }
 
+
+  getSoundsWithExtension() {
+    const files = fs.readdirSync('sounds/');
+    let sounds = files.filter(sound => config.get('extensions').some(ext => sound.endsWith(ext)));
+    sounds = sounds.map(sound => ({ name: sound.split('.')[0], extension: sound.split('.')[1] }));
+    return sounds;
+  }
+
+  getSounds() {
+    const sounds = this.getSoundsWithExtension();
+    return sounds.map(sound => sound.name);
+  }
+
  _addSound(attachment, channel) {
     if (attachment.filesize > config.get('size')) {
-      channel.sendMessage(`${attachment.filename.split('.')[0]} is too big!`);
+      channel.send(`${attachment.filename.split('.')[0]} is too big!`);
       return;
     }
 
     if (!config.get('extensions').some(ext => attachment.filename.endsWith(ext))) {
-      channel.sendMessage('Sound has to be in accepted format!');
+      channel.send('Sound has to be in accepted format!');
       return;
-    }
+    }   
 
     const filename = attachment.filename.split('.')[0];
     if (this.getSounds().includes(filename)) {
-      channel.sendMessage(`${filename} already exists!`);
+      channel.send(`${filename} already exists!`);
       return;
     }
 
@@ -46,11 +58,11 @@ constructor(){
       if (response.statusCode === 200) {
         const file = fs.createWriteStream(`./sounds/${attachment.filename}`);
         response.pipe(file);
-        channel.sendMessage(`${filename} added!`);
+        channel.send(`${filename} added!`);
       }
     }).on('error', (error) => {
       console.error(error);
-      channel.sendMessage('Something went wrong!');
+      channel.send('Something went wrong!');
     });
   }
 }
