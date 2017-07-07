@@ -1,7 +1,7 @@
 {
   "name": "meme-machine",
   "version": "0.0.1",
-  "description": "An example module to illustrate the usage of a package.json",
+  "description": "discord bot that plays sound memes",
   "author": "Tom Prins <place@holder.ocm>",
   "contributors": [{
   "name": "Foo Bar",
@@ -17,7 +17,8 @@
   "sounds"
 ],
   "dependencies": {
-    "discord.js":"11.1.0"
+    "discord.js":"11.1.0",
+    "config":"1.26.1"
   },
   "devDependencies": {
   },
