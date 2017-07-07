@@ -20,6 +20,11 @@ class MessageHandler {
                 Util.addSounds(message.attachments, message.channel);
                 return;
             }
+            if(message.content.startsWith('!sounds')){
+                const sounds = Util.getSounds();
+                message.author.send(sounds.map(sound => sound));
+                return;
+            }
             else{
                 if(message.content.startsWith('!')){
                     message.reply("not implemented playing sounds");

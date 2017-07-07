@@ -65,5 +65,6 @@ constructor(){
       channel.send('Something went wrong!');
     });
   }
+  
 }
 module.exports = new Util();
