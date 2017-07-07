@@ -1,0 +1,27 @@
+{
+  "name": "meme-machine",
+  "version": "0.0.1",
+  "description": "An example module to illustrate the usage of a package.json",
+  "author": "Tom Prins <place@holder.ocm>",
+  "contributors": [{
+  "name": "Foo Bar",
+  "email": "foo.bar@example.com"
+}],
+  "scripts": {
+    "start": "node main.js"
+  },
+  "keywords": [
+  "discord",
+  "bot",
+  "memes",
+  "sounds"
+],
+  "dependencies": {
+    "discord.js":"11.1.0"
+  },
+  "devDependencies": {
+  },
+  "subdomain": "foobar",
+  "analyze": true,
+  "license": "MIT"
+}
