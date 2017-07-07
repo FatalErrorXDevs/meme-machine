@@ -3,25 +3,26 @@
   "version": "0.0.1",
   "description": "discord bot that plays sound memes",
   "author": "Tom Prins <place@holder.ocm>",
-  "contributors": [{
-  "name": "Foo Bar",
-  "email": "foo.bar@example.com"
-}],
+  "contributors": [
+    {
+      "name": "Foo Bar",
+      "email": "foo.bar@example.com"
+    }
+  ],
   "scripts": {
     "start": "node main.js"
   },
   "keywords": [
-  "discord",
-  "bot",
-  "memes",
-  "sounds"
-],
+    "discord",
+    "bot",
+    "memes",
+    "sounds"
+  ],
   "dependencies": {
-    "discord.js":"11.1.0",
-    "config":"1.26.1"
+    "discord.js": "11.1.0",
+    "config": "1.26.1"
   },
-  "devDependencies": {
-  },
+  "devDependencies": {},
   "subdomain": "foobar",
   "analyze": true,
   "license": "MIT"
