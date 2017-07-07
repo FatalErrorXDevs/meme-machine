@@ -20,7 +20,10 @@
   ],
   "dependencies": {
     "discord.js": "11.1.0",
-    "config": "1.26.1"
+    "config": "1.26.1",
+    "node-opus": "0.2.6",
+    "sodium": "2.0.1",
+    "uws": "8.14.0"
   },
   "devDependencies": {},
   "subdomain": "foobar",

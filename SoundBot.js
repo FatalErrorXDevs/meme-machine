@@ -1,16 +1,16 @@
 const Discord = require('discord.js');
-var client = new Discord.Client();
+var bot = new Discord.Client();
 const Config = require('config')
 
 
-client.login(Config.get('token'));
+bot.login(Config.get('token'));
 
-client.on("ready", () => {
+bot.on("ready", () => {
   console.log("I am ready!");
 });
 
-client.on("message", (message) => {
-  if (message.content.startsWith("ping")) {
-    message.channel.send("pong!");
+bot.on("message", (message) => {
+    if(message.author.username !== bot.user.username && message.content.startsWith("!")) {
+    message.channel.send("!pong!");
   }
 });
