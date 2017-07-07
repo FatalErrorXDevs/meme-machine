@@ -27,7 +27,10 @@ class MessageHandler {
             }
             if (message.content.startsWith('!sounds')) {
                 const sounds = Util.getSounds();
-                message.author.send(sounds.map(sound => sound));
+                const test = sounds.map(sound => sound);
+                test.unshift('```');
+                test.push('```');
+                message.author.send(test);
                 return;
             }
             if (message.content === '!random') {
@@ -56,11 +59,23 @@ class MessageHandler {
                         return;
                     }
                     const sounds = Util.getSounds();
+                    let prefixes = [];
+
+                    prefixes = sounds.filter((sound) => sound.includes('_'));
+                    prefixes = prefixes.map((prefix) => prefix.split('_')[0]);
+
                     const sound = message.content.split('!')[1];
+                    if (prefixes.includes(sound)) {
+                        let prefixlist = sounds.filter((play) => play.includes(sound + '_'));
+                        let random = prefixlist[Math.floor(Math.random() * prefixlist.length)];
+                        this.bot.addToQueue(voiceChannel, random, message);
+                        if (this.bot.voiceConnections.array().length === 0) this.bot.playSoundQueue();
+                        return;
+                    }
                     if (sounds.includes(sound)) {
                         this.bot.addToQueue(voiceChannel, sound, message);
-                        console.log(this.bot.queue);
                         if (this.bot.voiceConnections.array().length === 0) this.bot.playSoundQueue();
+                        return;
                     }
                 }
             }
