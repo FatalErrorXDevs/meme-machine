@@ -25,16 +25,24 @@ class Util {
     }
 
     removeSound(sound, channel) {
-        console.log(channel);
-    const file = `sounds/${sound}.mp3`;
-    try {
-      fs.unlinkSync(file);
-      channel.sendMessage(`${sound} removed!`);
-    } catch (error) {
-      channel.sendMessage(`${sound} not found!`);
-    }
+        const file = `sounds/${sound}.mp3`;
+        try {
+            fs.unlinkSync(file);
+            channel.send(`${sound} removed!`);
+        } catch (error) {
+            channel.send(`${sound} not found!`);
+        }
 
     }
+
+    getExtensionForSound(name) {
+        return this.getSoundsWithExtension().find(sound => sound.name === name).extension;
+    }
+
+    getPathForSound(sound) {
+        return `sounds/${sound}.${this.getExtensionForSound(sound)}`;
+    }
+
     getSoundsWithExtension() {
         const files = fs.readdirSync('sounds/');
         let sounds = files.filter(sound => config.get('extensions').some(ext => sound.endsWith(ext)));
@@ -75,6 +83,5 @@ class Util {
             channel.send('Something went wrong!');
         });
     }
-
 }
 module.exports = new Util();

@@ -13,7 +13,7 @@ class MessageHandler {
                 return;
             }
             if (message.content.startsWith('!remove')) {
-                if(!this.checkroleCommander(message)){
+                if (!this.checkroleCommander(message)) {
                     message.reply("You do not have permission to do that! Request Bot Commander role!");
                     return;
                 }
@@ -30,10 +30,25 @@ class MessageHandler {
                 message.author.send(sounds.map(sound => sound));
                 return;
             }
+            if (message.content === '!random') {
+                const sounds = Util.getSounds();
+                const random = sounds[Math.floor(Math.random() * sounds.length)];
+                const voiceChannel = message.member.voiceChannel;
+                this.bot.addToQueue(voiceChannel, random, message);
+                this.bot.playSoundQueue();
+                return;
+            }
+            if (message.content === '!stop') {
+                        const voiceChannel = message.member.voiceChannel;
+                        voiceChannel.leave();
+                        this.bot.queue = [];
+                    }
             else {
                 if (message.content.startsWith('!')) {
-                    message.reply("not implemented playing sounds");
-                    return;
+                    const voiceChannel = message.member.voiceChannel;
+                    if (voiceChannel === undefined) {
+                        message.reply('Join a voice channel first!');
+                    }
                 }
             }
         }
