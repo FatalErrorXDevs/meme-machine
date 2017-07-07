@@ -31,23 +31,36 @@ class MessageHandler {
                 return;
             }
             if (message.content === '!random') {
+                const voiceChannel = message.member.voiceChannel;
+                if (voiceChannel === undefined) {
+                    message.reply('Join a voice channel first!');
+                    return;
+                }
                 const sounds = Util.getSounds();
                 const random = sounds[Math.floor(Math.random() * sounds.length)];
-                const voiceChannel = message.member.voiceChannel;
                 this.bot.addToQueue(voiceChannel, random, message);
-                this.bot.playSoundQueue();
+                if (this.bot.voiceConnections.array().length === 0) this.bot.playSoundQueue();
                 return;
             }
             if (message.content === '!stop') {
-                        const voiceChannel = message.member.voiceChannel;
-                        voiceChannel.leave();
-                        this.bot.queue = [];
-                    }
+                const voiceChannel = message.member.voiceChannel;
+                voiceChannel.leave();
+                this.bot.queue = [];
+                return;
+            }
             else {
                 if (message.content.startsWith('!')) {
                     const voiceChannel = message.member.voiceChannel;
                     if (voiceChannel === undefined) {
                         message.reply('Join a voice channel first!');
+                        return;
+                    }
+                    const sounds = Util.getSounds();
+                    const sound = message.content.split('!')[1];
+                    if (sounds.includes(sound)) {
+                        this.bot.addToQueue(voiceChannel, sound, message);
+                        console.log(this.bot.queue);
+                        if (this.bot.voiceConnections.array().length === 0) this.bot.playSoundQueue();
                     }
                 }
             }
