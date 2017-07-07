@@ -1,4 +1,5 @@
 const Discord = require('discord.js');
+const Util = require('./Util');
 
 class MessageHandler {
     constructor(bot) {
@@ -7,18 +8,22 @@ class MessageHandler {
 
     handle(message) {
         if (message.author.username !== this.bot.user.username) {
-            if(message.content.startsWith('!add')){
-                message.reply("not implemented? " + message.content);
+            if(message.content.startsWith('!commands')){
+                message.author.send(Util.commandsList());
+                return;
             }
             if(message.content.startsWith('!remove')){
                 message.reply("not implemented? " + message.content);
+                return;
             }
-            if(message.content.startsWith('!commands')){
+            if(message.content.startsWith('!add')){
                 message.reply("not implemented? " + message.content);
+                return;
             }
             else{
                 if(message.content.startsWith('!')){
                     message.reply("not implemented playing sounds");
+                    return;
                 }
             }
         }
