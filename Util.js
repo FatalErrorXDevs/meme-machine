@@ -30,6 +30,7 @@ class Util {
             fs.unlinkSync(file);
             channel.send(`${sound} removed!`);
         } catch (error) {
+            console.log(error);
             channel.send(`${sound} not found!`);
         }
 
