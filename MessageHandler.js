@@ -47,8 +47,8 @@ class MessageHandler {
             }
             if (message.content === '!stop') {
                 const voiceChannel = message.member.voiceChannel;
-                voiceChannel.leave();
                 this.bot.queue = [];
+                voiceChannel.leave();
                 return;
             }
             else {
