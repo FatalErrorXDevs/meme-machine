@@ -26,6 +26,9 @@ class SoundBot extends Discord.Client {
         const file = Util.getPathForSound(nextSound.name);
         const voiceChannel = this.channels.get(nextSound.channel);
 
+        const volume;
+
+
         voiceChannel.join().then((connection) => {
             const dispatcher = connection.playFile(file, {volume: '0.2'},);
             dispatcher.on('end', () => {
@@ -35,12 +38,7 @@ class SoundBot extends Discord.Client {
                 if (this.queue.length > 0)
                     this.playSoundQueue();
                 else
-                try{
                     connection.disconnect();
-                }
-                    catch(error){
-                        
-                    }
             });
         }).catch((error) => {
             console.log('Error occured!');
