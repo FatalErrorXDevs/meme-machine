@@ -27,10 +27,10 @@ class MessageHandler {
             }
             if (message.content.startsWith('!sounds')) {
                 const sounds = Util.getSounds();
-                const test = sounds.map(sound => sound);
-                test.unshift('```');
-                test.push('```');
-                message.author.send(test);
+                const formattedSoundsList = sounds.map(sound => sound);
+                formattedSoundsList.unshift('```');
+                formattedSoundsList.push('```');
+                message.author.send(formattedSoundsList);
                 return;
             }
             if (message.content === '!random') {

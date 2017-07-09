@@ -27,7 +27,7 @@ class SoundBot extends Discord.Client {
         const voiceChannel = this.channels.get(nextSound.channel);
 
         voiceChannel.join().then((connection) => {
-            const dispatcher = connection.playFile(file);
+            const dispatcher = connection.playFile(file, {volume: '0.2'},);
             dispatcher.on('end', () => {
                 if (Config.get('deleteMessages') === true)
                     nextSound.message.delete();
@@ -35,7 +35,12 @@ class SoundBot extends Discord.Client {
                 if (this.queue.length > 0)
                     this.playSoundQueue();
                 else
+                try{
                     connection.disconnect();
+                }
+                    catch(error){
+                        
+                    }
             });
         }).catch((error) => {
             console.log('Error occured!');
