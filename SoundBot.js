@@ -14,9 +14,13 @@ class SoundBot extends Discord.Client {
         this.login(Config.get('token'));
         this._addEventListeners();
 
-        this.db = low('volume.json', { storage: fileAsync });
+        this.db = low('db.json', { storage: fileAsync });
         this.db.defaults({ sound: [] })
             .write();
+
+        
+
+
         this.queue = [];
     }
 
@@ -33,10 +37,17 @@ class SoundBot extends Discord.Client {
         const file = Util.getPathForSound(nextSound.name);
         const voiceChannel = this.channels.get(nextSound.channel);
 
-        const volume = 0;
+        var soundVolume = 1;
 
+        var soundVolume = Util.findSongInDb(nextSound.name);
+
+        if(soundVolume){
+            var soundVolume =  Util.findSongInDb(nextSound.name)
+            soundVolume = (soundVolume.volume);
+
+        }
         voiceChannel.join().then((connection) => {
-            const dispatcher = connection.playFile(file, { volume: '0.2' }, );
+            const dispatcher = connection.playFile(file, { volume: Number(soundVolume) }, );
             dispatcher.on('end', () => {
                 if (Config.get('deleteMessages') === true)
                     nextSound.message.delete();

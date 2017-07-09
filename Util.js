@@ -39,24 +39,36 @@ class Util {
 
     }
 
+
+    findSongInDb(sound){
+        return this.db.get('sound').find({ name: sound }).value();
+
+    }
     changeSoundVolume(sound, volume, channel) {
         // get value from database, if not exist, add it to database.
         const exists = this.getSounds().includes(sound);
         if (exists) {
-            var soundVolume = this.db.get('sound').find({ name: sound }).value();
+            var soundVolume = this.findSongInDb(sound);
             if (soundVolume) {
                 this.db.get('sound').find({name: sound}).value().volume = volume;
                 this.db.write();
+                channel.send(sound +" volume changed to " + volume)
+                return;
             } else {
-                console.log("reeee");
                 this.db.get('sound').push({
                     name: sound, volume: Number(volume)
                 }).write();
+                channel.send(sound +" volume changed to " + volume)
+                return;
             }
         } else {
             channel.send('that sound doesnt exists!');
             return;
         }
+    }
+
+    findSoundVolume(sound){
+        return this.findSongInDb(sound).volume;
     }
 
     getExtensionForSound(name) {
