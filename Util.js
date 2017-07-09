@@ -2,9 +2,12 @@ const fs = require('fs');
 const https = require('https');
 const config = require('config');
 
+const low = require('lowdb');
+const fileAsync = require('lowdb/lib/storages/file-async');
+
 class Util {
     constructor() {
-
+        this.db = low('volume.json', { storage: fileAsync });
     }
     commandsList() {
         return [
@@ -39,14 +42,21 @@ class Util {
     changeSoundVolume(sound, volume, channel) {
         // get value from database, if not exist, add it to database.
         const exists = this.getSounds().includes(sound);
-        if(exists){
-            
-        } else{
+        if (exists) {
+            var soundVolume = this.db.get('sound').find({ name: sound }).value();
+            if (soundVolume) {
+                this.db.get('sound').find({name: sound}).value().volume = volume;
+                this.db.write();
+            } else {
+                console.log("reeee");
+                this.db.get('sound').push({
+                    name: sound, volume: Number(volume)
+                }).write();
+            }
+        } else {
             channel.send('that sound doesnt exists!');
             return;
         }
-        console.log(soundList);
-
     }
 
     getExtensionForSound(name) {

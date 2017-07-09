@@ -1,33 +1,26 @@
 {
-  "name": "meme-machine",
-  "version": "0.0.1",
-  "description": "discord bot that plays sound memes",
-  "author": "Tom Prins <place@holder.ocm>",
-  "contributors": [
-    {
-      "name": "Foo Bar",
-      "email": "foo.bar@example.com"
-    }
-  ],
-  "scripts": {
-    "start": "node main.js"
-  },
-  "keywords": [
-    "discord",
-    "bot",
-    "memes",
-    "sounds"
-  ],
-  "dependencies": {
-    "config": "1.26.1",
-    "discord.js": "11.1.0",
-    "erlpack": "github:hammerandchisel/erlpack",
-    "node-opus": "^0.2.6",
-    "sodium": "^2.0.1",
-    "uws": "^8.14.0"
-  },
-  "devDependencies": {},
-  "subdomain": "foobar",
-  "analyze": true,
-  "license": "MIT"
+    "name": "meme-machine",
+    "version": "0.0.1",
+    "description": "discord bot that plays sound memes",
+    "author": "Tom Prins <place@holder.ocm>",
+    "scripts": {
+        "start": "node main.js"
+    },
+    "keywords": [
+        "discord",
+        "bot",
+        "memes",
+        "sounds"
+    ],
+    "dependencies": {
+        "config": "1.26.1",
+        "discord.js": "11.1.0",
+        "lowdb": "^0.16.2",
+        "node-opus": "0.2.6",
+        "uws": "8.14.0"
+    },
+    "devDependencies": {},
+    "subdomain": "foobar",
+    "analyze": true,
+    "license": "MIT"
 }

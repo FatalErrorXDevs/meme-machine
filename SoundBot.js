@@ -2,7 +2,10 @@ const Discord = require('discord.js');
 var bot = new Discord.Client({ autoReconnect: true });
 const Config = require('config')
 const MessageHandler = require('./MessageHandler.js');
+const low = require('lowdb');
+const fileAsync = require('lowdb/lib/storages/file-async');
 const Util = require('./Util')
+
 
 class SoundBot extends Discord.Client {
     constructor() {
@@ -10,6 +13,10 @@ class SoundBot extends Discord.Client {
         this.messageHandler = new MessageHandler(this);
         this.login(Config.get('token'));
         this._addEventListeners();
+
+        this.db = low('volume.json', { storage: fileAsync });
+        this.db.defaults({ sound: [] })
+            .write();
         this.queue = [];
     }
 
@@ -29,7 +36,7 @@ class SoundBot extends Discord.Client {
         const volume = 0;
 
         voiceChannel.join().then((connection) => {
-            const dispatcher = connection.playFile(file, {volume: '0.2'},);
+            const dispatcher = connection.playFile(file, { volume: '0.2' }, );
             dispatcher.on('end', () => {
                 if (Config.get('deleteMessages') === true)
                     nextSound.message.delete();
