@@ -36,6 +36,19 @@ class Util {
 
     }
 
+    changeSoundVolume(sound, volume, channel) {
+        // get value from database, if not exist, add it to database.
+        const exists = this.getSounds().includes(sound);
+        if(exists){
+            
+        } else{
+            channel.send('that sound doesnt exists!');
+            return;
+        }
+        console.log(soundList);
+
+    }
+
     getExtensionForSound(name) {
         return this.getSoundsWithExtension().find(sound => sound.name === name).extension;
     }

@@ -25,6 +25,16 @@ class MessageHandler {
                 Util.addSounds(message.attachments, message.channel);
                 return;
             }
+            if (message.content.startsWith('!volume')){
+                var sound = message.content.replace('!volume', '')
+                sound = sound.split(" ");
+                if (!isNaN(sound[2])){
+                    Util.changeSoundVolume(sound[1], sound[2], message.channel);
+                } else {
+                    message.reply("Thats not a valid sound level! 0-2");
+                }
+                return;
+            }
             if (message.content.startsWith('!sounds')) {
                 const sounds = Util.getSounds();
                 const formattedSoundsList = sounds.map(sound => sound);
