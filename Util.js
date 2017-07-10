@@ -9,6 +9,7 @@ class Util {
     constructor() {
         this.db = low('volume.json', { storage: fileAsync });
     }
+    
     commandsList() {
         return [
             '```',
@@ -24,6 +25,7 @@ class Util {
             '```'
         ].join('\n');
     }
+
     addSounds(attachments, channel) {
         attachments.forEach(attachment => this._addSound(attachment, channel));
     }
@@ -37,7 +39,6 @@ class Util {
             console.log(error);
             channel.send(`${sound} not found!`);
         }
-
     }
 
     renameSound(oldName, newName, channel) {
