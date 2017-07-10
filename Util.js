@@ -19,6 +19,7 @@ class Util {
             '!stop                  Stop playing and clear queue',
             '!add                   Add the attached sound',
             '!rename <old> <new>    Rename specified sound',
+            '!volume <sound> <level 0-2>    Adjust volume of sound between 0 and 2',
             '!remove <sound>        Remove specified sound',
             '```'
         ].join('\n');
@@ -39,26 +40,36 @@ class Util {
 
     }
 
+    renameSound(oldName, newName, channel) {
+        const oldFile = `sounds/${oldName}.mp3`;
+        const newFile = `sounds/${newName}.mp3`;
+        try {
+            fs.renameSync(oldFile, newFile);
+            channel.send(`${oldName} renamed to ${newName}!`);
+        } catch (error) {
+            channel.send(`${oldName} not found!`);
+        }
+    }
 
-    findSongInDb(sound){
+    findSongInDb(sound) {
         return this.db.get('sound').find({ name: sound }).value();
 
     }
+
     changeSoundVolume(sound, volume, channel) {
-        // get value from database, if not exist, add it to database.
         const exists = this.getSounds().includes(sound);
         if (exists) {
             var soundVolume = this.findSongInDb(sound);
             if (soundVolume) {
-                this.db.get('sound').find({name: sound}).value().volume = volume;
+                this.db.get('sound').find({ name: sound }).value().volume = volume;
                 this.db.write();
-                channel.send(sound +" volume changed to " + volume)
+                channel.send(sound + " volume changed to " + volume)
                 return;
             } else {
                 this.db.get('sound').push({
                     name: sound, volume: Number(volume)
                 }).write();
-                channel.send(sound +" volume changed to " + volume)
+                channel.send(sound + " volume changed to " + volume)
                 return;
             }
         } else {
@@ -67,7 +78,7 @@ class Util {
         }
     }
 
-    findSoundVolume(sound){
+    findSoundVolume(sound) {
         return this.findSongInDb(sound).volume;
     }
 

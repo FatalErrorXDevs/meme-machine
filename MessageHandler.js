@@ -25,10 +25,10 @@ class MessageHandler {
                 Util.addSounds(message.attachments, message.channel);
                 return;
             }
-            if (message.content.startsWith('!volume')){
+            if (message.content.startsWith('!volume')) {
                 var sound = message.content.replace('!volume', '')
                 sound = sound.split(" ");
-                if (!isNaN(sound[2])){
+                if (!isNaN(sound[2])) {
                     Util.changeSoundVolume(sound[1], sound[2], message.channel);
                 } else {
                     message.reply("Thats not a valid sound level! 0-2");
@@ -54,6 +54,10 @@ class MessageHandler {
                 this.bot.addToQueue(voiceChannel, random, message);
                 if (this.bot.voiceConnections.array().length === 0) this.bot.playSoundQueue();
                 return;
+            }
+            if (message.content.startsWith('!rename ')) {
+                const [oldsound, newsound] = message.content.replace('!rename ', '').split(' ');
+                Util.renameSound(oldsound, newsound, message.channel);
             }
             if (message.content === '!stop') {
                 const voiceChannel = message.member.voiceChannel;
