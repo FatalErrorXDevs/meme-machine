@@ -40,6 +40,8 @@ class SoundBot extends Discord.Client {
             soundVolume = 1;
         }
 
+        console.log(Number(soundVolume));
+
         voiceChannel.join().then((connection) => {
             const dispatcher = connection.playFile(file, { volume: Number(soundVolume) } );
             dispatcher.on('end', () => {
