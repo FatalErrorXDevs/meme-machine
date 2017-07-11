@@ -35,12 +35,11 @@ class SoundBot extends Discord.Client {
         if(soundVolume){
             var soundVolume =  Util.findSongInDb(nextSound.name)
             soundVolume = (soundVolume.volume);
-
+            console.log("volume changed from db") ;   
         } else {
             soundVolume = 1;
         }
 
-        console.log(Number(soundVolume));
 
         voiceChannel.join().then((connection) => {
             const dispatcher = connection.playFile(file, { volume: Number(soundVolume) } );

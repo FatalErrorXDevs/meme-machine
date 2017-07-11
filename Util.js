@@ -9,7 +9,7 @@ class Util {
     constructor() {
         this.db = low('volume.json', { storage: fileAsync });
     }
-    
+
     commandsList() {
         return [
             '```',
@@ -61,6 +61,7 @@ class Util {
         const exists = this.getSounds().includes(sound);
         if (exists) {
             var soundVolume = this.findSongInDb(sound);
+            console.log(soundVolume);
             if (soundVolume) {
                 this.db.get('sound').find({ name: sound }).value().volume = volume;
                 this.db.write();
