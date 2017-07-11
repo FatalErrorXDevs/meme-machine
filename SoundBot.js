@@ -13,7 +13,7 @@ class SoundBot extends Discord.Client {
         this.messageHandler = new MessageHandler(this);
         this.login(Config.get('token'));
         this._addEventListeners();
-        this.db = low('db.json', { storage: fileAsync });
+        this.db = low('volume.json', { storage: fileAsync });
         this.db.defaults({ sound: [] }).write();
         this.queue = [];
     }
