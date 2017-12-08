@@ -69,7 +69,6 @@ class MessageHandler {
                 if (message.content.startsWith('!')) {
                     const voiceChannel = message.member.voiceChannel;
                     if (voiceChannel === undefined) {
-                        message.reply('Join a voice channel first!');
                         return;
                     }
                     const sounds = Util.getSounds();
