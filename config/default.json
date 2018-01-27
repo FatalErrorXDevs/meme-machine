@@ -1,6 +1,6 @@
 {
-  "client_id": "discord id",
-  "token": "discord token",
+  "client_id": "406919183465709568",
+  "token": "NDA2OTE5MTgzNDY1NzA5NTY4.DU58jg.b0ldiBJKAuLO-H4rmVl7OsXuV1A",
   "extensions": [".mp3", ".wav"],
   "size": 10000000,
   "deleteMessages": true 

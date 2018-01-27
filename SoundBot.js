@@ -58,9 +58,28 @@ class SoundBot extends Discord.Client {
         });
     }
 
+    awnser(message){
+        message.reply("REEEE");
+    }
+
+
+    containsMe(array){
+
+        var found = false;
+        for(var i = 0; i < array.length; i++) {
+            if (array[i].id == this.user.id) {
+                found = true;
+                return true
+                break;
+            }
+
+    }
+    return false;
+}
+
     _messageListener(message) {
         if (message.channel instanceof Discord.DMChannel) return; // Abort when DM
-        if (!message.content.startsWith('!')) return; // Abort when not prefix
+        if (!message.content.startsWith('!') && this.user.id != message.author.id && this.containsMe(message.mentions.users.array())) this.awnser(message); // Abort when not prefix
         this.messageHandler.handle(message);
     }
 }
