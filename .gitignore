@@ -3,3 +3,5 @@ node_modules/
 package-lock.json
 sounds/*
 volume.json
+bower_components/
+app/componenets/
