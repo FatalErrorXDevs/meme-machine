@@ -4,13 +4,7 @@
 angular.
   module('soundLister').
   component('soundList', {
-    template:
-        '<ul>' +
-          '<li ng-repeat="sound in $ctrl.sound">' +
-            '<span>{{sound.name}}</span>' +
-            '<p>{{sound.snippet}}</p>' +
-          '</li>' +
-        '</ul>',
+    templateUrl: 'soundLister.html',
     controller: function SoundListController() {
       this.sound = [
         {
@@ -24,5 +18,10 @@ angular.
           snippet: 'The Next, Next Generation tablet.'
         }
       ];
+      this.socket = io.connect();
+      this.test = function(name) {
+      console.log("reeee" + " "  + name);
+          this.socket.emit('play', name);
+      }
     }
   });

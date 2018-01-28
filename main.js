@@ -25,7 +25,10 @@ var io = require('socket.io').listen(server);
 io.sockets.on('connection', function(socket) {
     console.log("bot commander connected");
     socket.on('disconnect', function() {
-        
+        console.log('bot commander disconnected');
+   });
+   socket.on('play', function(name){
+        console.log('play triggered for sound ' + name);
    });
 });
 
