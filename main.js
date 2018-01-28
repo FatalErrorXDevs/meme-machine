@@ -20,6 +20,21 @@ console.log(
     `https://discordapp.com/oauth2/authorize?client_id=${config.get('client_id')}&scope=bot`
 );
 
+
+var io = require('socket.io').listen(server);
+io.sockets.on('connection', function(socket) {
+    console.log("bot commander connected");
+    var watcher = fs.watch('files', function (event, filename) {
+        if (fs.existsSync('files/' + filename)) {
+            socket.emit('change', dirTree('files/' + filename));
+        }
+    });
+    socket.on('disconnect', function() {
+      watcher.close(); 
+   });
+});
+
+
 server.listen(3001, function() {
     console.log('Listening on port 3001...');    
 });

@@ -19,10 +19,12 @@ class MessageHandler {
                 }
                 const sound = message.content.replace('!remove ', '');
                 Util.removeSound(sound, message.channel);
+                message.delete();
                 return;
             }
             if (message.content.startsWith('!add')) {
                 Util.addSounds(message.attachments, message.channel);
+                message.delete();
                 return;
             }
             if (message.content.startsWith('!volume')) {
@@ -41,28 +43,34 @@ class MessageHandler {
                 formattedSoundsList.unshift('```');
                 formattedSoundsList.push('```');
                 message.author.send(formattedSoundsList);
+                message.delete();
                 return;
             }
             if (message.content === '!random') {
                 const voiceChannel = message.member.voiceChannel;
                 if (voiceChannel === undefined) {
                     message.reply('Join a voice channel first!');
+                    message.delete();
                     return;
                 }
                 const sounds = Util.getSounds();
                 const random = sounds[Math.floor(Math.random() * sounds.length)];
                 this.bot.addToQueue(voiceChannel, random, message);
                 if (this.bot.voiceConnections.array().length === 0) this.bot.playSoundQueue();
+                message.delete();
                 return;
             }
             if (message.content.startsWith('!rename ')) {
                 const [oldsound, newsound] = message.content.replace('!rename ', '').split(' ');
                 Util.renameSound(oldsound, newsound, message.channel);
+                message.delete();
+                return;
             }
             if (message.content === '!stop') {
                 const voiceChannel = message.member.voiceChannel;
                 this.bot.queue = [];
                 voiceChannel.leave();
+                message.delete();
                 return;
             }
             else {
@@ -83,13 +91,16 @@ class MessageHandler {
                         let random = prefixlist[Math.floor(Math.random() * prefixlist.length)];
                         this.bot.addToQueue(voiceChannel, random, message);
                         if (this.bot.voiceConnections.array().length === 0) this.bot.playSoundQueue();
+                        message.delete();
                         return;
                     }
                     if (sounds.includes(sound)) {
                         this.bot.addToQueue(voiceChannel, sound, message);
                         if (this.bot.voiceConnections.array().length === 0) this.bot.playSoundQueue();
+                        message.delete();
                         return;
                     }
+                    message.delete();
                 }
             }
         }
