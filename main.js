@@ -6,7 +6,7 @@ var http = require('http'),
     path = require('path');
 
 var app = express();
-app.use(express.static(__dirname + '/components'));
+app.use(express.static(__dirname + '/app/components'));
 app.use(express.static(__dirname + '/app'));
 app.use('/bower_components',  express.static(__dirname + '/bower_components'));
 var server = http.createServer(app);
@@ -24,13 +24,8 @@ console.log(
 var io = require('socket.io').listen(server);
 io.sockets.on('connection', function(socket) {
     console.log("bot commander connected");
-    var watcher = fs.watch('files', function (event, filename) {
-        if (fs.existsSync('files/' + filename)) {
-            socket.emit('change', dirTree('files/' + filename));
-        }
-    });
     socket.on('disconnect', function() {
-      watcher.close(); 
+        
    });
 });
 
