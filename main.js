@@ -26,11 +26,15 @@ var io = require('socket.io').listen(server);
 io.sockets.on('connection', function(socket) {
     console.log("bot commander connected");
 
-    emitSoundsToGUI(socket);
+
     socket.on('getChannels', function() {
         console.log(soundbot.channels);
         
     });
+    
+    socket.on('getSounds', function(){
+        socket.emit('loadDisplay', soundbot.util.getSounds());
+    })
 
     socket.on('disconnect', function() {
         console.log('bot commander disconnected');
@@ -40,10 +44,6 @@ io.sockets.on('connection', function(socket) {
    });
 });
 
-function emitSoundsToGUI(socket){
-    console.log('sending data to client');
-    socket.emit('loadDisplay', soundbot.util.getSounds());
-}
 
 server.listen(3001, function() {
     console.log('Listening on port 3001...');    

@@ -5,7 +5,7 @@ angular.
   module('soundLister').
   component('soundList', {
     templateUrl: 'soundLister.html',
-    controller: function SoundListController($scope) {
+    controller: function SoundListController($scope, $interval) {
 
       this.test = function(name) {
         console.log("reeee" + " "  + name);
@@ -13,7 +13,15 @@ angular.
         };
 
       this.socket = io.connect();
-      this.socket.emit('getChannels');
+
+      $scope.socket = this.socket;
+
+
+      $interval(function(){
+        $scope.socket.emit('getChannels');
+        $scope.socket.emit('getSounds');
+      },5000);
+
 
       this.socket.on('loadDisplay', function(soundList){
         $scope.sounds = {text : soundList};
