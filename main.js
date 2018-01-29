@@ -27,6 +27,10 @@ io.sockets.on('connection', function(socket) {
     console.log("bot commander connected");
 
     emitSoundsToGUI(socket);
+    socket.on('getChannels', function() {
+        console.log(soundbot.channels);
+        
+    });
 
     socket.on('disconnect', function() {
         console.log('bot commander disconnected');
