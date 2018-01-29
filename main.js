@@ -1,5 +1,5 @@
 const config = require('config');
-require('./SoundBot.js')
+var soundbot = require('./SoundBot.js')
 var http = require('http'),
     express = require('express'),
     fs = require('fs'),
@@ -22,16 +22,24 @@ console.log(
 
 
 var io = require('socket.io').listen(server);
+
 io.sockets.on('connection', function(socket) {
     console.log("bot commander connected");
+
+    emitSoundsToGUI(socket);
+
     socket.on('disconnect', function() {
         console.log('bot commander disconnected');
    });
    socket.on('play', function(name){
-        console.log('play triggered for sound ' + name);
+
    });
 });
 
+function emitSoundsToGUI(socket){
+    console.log('sending data to client');
+    socket.emit('loadDisplay', soundbot.util.getSounds());
+}
 
 server.listen(3001, function() {
     console.log('Listening on port 3001...');    

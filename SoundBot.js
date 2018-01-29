@@ -4,7 +4,7 @@ const Config = require('config')
 const MessageHandler = require('./MessageHandler.js');
 const low = require('lowdb');
 const fileAsync = require('lowdb/lib/storages/file-async');
-const Util = require('./Util')
+var Util = require('./Util')
 
 
 class SoundBot extends Discord.Client {
@@ -16,6 +16,7 @@ class SoundBot extends Discord.Client {
         this.db = low('volume.json', { storage: fileAsync });
         this.db.defaults({ sound: [] }).write();
         this.queue = [];
+        this.util = Util;
     }
 
     _addEventListeners() {
