@@ -27,6 +27,11 @@ class SoundBot extends Discord.Client {
         this.queue.push({ name: sound, channel: voiceChannel.id, message: messageTrigger });
     }
 
+    addToQueueFromGUI(voiceChannel, sound){
+        this.queue.push({name: sound, channel: voiceChannel, message: null});
+    }
+
+
     playSoundQueue() {
         const nextSound = this.queue.shift();
         const file = Util.getPathForSound(nextSound.name);
@@ -46,7 +51,8 @@ class SoundBot extends Discord.Client {
             const dispatcher = connection.playFile(file, { volume: Number(soundVolume) } );
             dispatcher.on('end', () => {
                 if (Config.get('deleteMessages') === true)
-                    nextSound.message.delete();
+                    if(nextSound.message != null ){
+                    nextSound.message.delete();}
 
                 if (this.queue.length > 0)
                     this.playSoundQueue();

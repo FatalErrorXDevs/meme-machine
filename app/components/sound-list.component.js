@@ -7,10 +7,14 @@ angular.
     templateUrl: 'soundLister.html',
     controller: function SoundListController($scope, $interval) {
 
-      this.test = function(name) {
-        console.log("reeee" + " "  + name);
-            this.socket.emit('play', name);
+      $scope.PlaySound = function(name, channel) {
+        console.log("reeee" + " "  + name, channel);
+            this.socket.emit('play', name, channel);
         };
+
+        $scope.data = {
+          selected: null
+         };
 
       this.socket = io.connect();
 

@@ -39,7 +39,11 @@ io.sockets.on('connection', function(socket) {
     socket.on('disconnect', function() {
         console.log('bot commander disconnected');
    });
-   socket.on('play', function(name){
+   socket.on('play', function(name, channel){
+       console.log("play pressed for sound " + name + 'supposed to play in channel ' + channel );
+
+       soundbot.addToQueueFromGUI(channel, name);
+       soundbot.playSoundQueue();
 
    });
 });
