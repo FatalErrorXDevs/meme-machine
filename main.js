@@ -28,8 +28,7 @@ io.sockets.on('connection', function(socket) {
 
 
     socket.on('getChannels', function() {
-        //console.log(soundbot.channels.filter(voice => voice.type == "voice"));
-        var channels = soundbot.channels.filterArray(voice => voice.type == "voice");
+        var channels = soundbot.channels.filterArray(voice => voice.type == "voice" && voice.name != "AFK");
         socket.emit('loadChannels', channels);
     });
     
