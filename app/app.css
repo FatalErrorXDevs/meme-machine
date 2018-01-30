@@ -13,3 +13,5 @@ body {
   display: table;
   clear: both;
 }
+
+.top-buffer { margin-top:5px; }

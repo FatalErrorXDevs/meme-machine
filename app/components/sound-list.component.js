@@ -15,12 +15,14 @@ angular.
       this.socket = io.connect();
 
       $scope.socket = this.socket;
+      $scope.socket.emit('getChannels');
+      $scope.socket.emit('getSounds');
 
 
       $interval(function(){
         $scope.socket.emit('getChannels');
         $scope.socket.emit('getSounds');
-      },5000);
+      },60000);
 
 
       this.socket.on('loadDisplay', function(soundList){
@@ -38,6 +40,15 @@ angular.
         });
         console.log($scope.channels);
       });
+
+
+      $scope.getLimitedWord = function(word, size){
+        if(word.length <= size){
+          return word;
+        } else {
+          return word.substr(0,size) + '...';
+        }}
+
 
     }
   });
