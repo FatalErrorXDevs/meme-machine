@@ -17,10 +17,8 @@ angular.
       $scope.socket = this.socket;
 
 
-
-      $scope.socket.emit('getChannels');
-
       $interval(function(){
+        $scope.socket.emit('getChannels');
         $scope.socket.emit('getSounds');
       },5000);
 
@@ -35,6 +33,9 @@ angular.
 
       this.socket.on('loadChannels', function(channels){
         $scope.channels = channels;
+        $scope.$apply(function(){
+          $scope.channels = channels;
+        });
         console.log($scope.channels);
       });
 
