@@ -17,8 +17,10 @@ angular.
       $scope.socket = this.socket;
 
 
+
+      $scope.socket.emit('getChannels');
+
       $interval(function(){
-        $scope.socket.emit('getChannels');
         $scope.socket.emit('getSounds');
       },5000);
 
