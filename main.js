@@ -40,10 +40,10 @@ io.sockets.on('connection', function(socket) {
         console.log('bot commander disconnected');
    });
    socket.on('play', function(name, channel){
-       console.log("play pressed for sound " + name + 'supposed to play in channel ' + channel );
-
-       soundbot.addToQueueFromGUI(channel, name);
+       if(channel != null ){
+            soundbot.addToQueueFromGUI(channel, name);
        if (soundbot.voiceConnections.array().length === 0) soundbot.playSoundQueue();
+       }
    });
 });
 
