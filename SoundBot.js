@@ -17,6 +17,7 @@ class SoundBot extends Discord.Client {
         this.db.defaults({ sound: [] }).write();
         this.queue = [];
         this.util = Util;
+        this.playstatus = "NotPlay";
     }
 
     _addEventListeners() {
@@ -30,7 +31,6 @@ class SoundBot extends Discord.Client {
     addToQueueFromGUI(voiceChannel, sound){
         this.queue.push({name: sound, channel: voiceChannel, message: null});
     }
-
 
     playSoundQueue() {
         const nextSound = this.queue.shift();

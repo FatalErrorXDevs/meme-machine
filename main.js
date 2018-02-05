@@ -43,8 +43,7 @@ io.sockets.on('connection', function(socket) {
        console.log("play pressed for sound " + name + 'supposed to play in channel ' + channel );
 
        soundbot.addToQueueFromGUI(channel, name);
-       soundbot.playSoundQueue();
-
+       if (soundbot.voiceConnections.array().length === 0) soundbot.playSoundQueue();
    });
 });
 
