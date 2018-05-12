@@ -7,6 +7,7 @@ class MessageHandler {
     }
 
     handle(message) {
+        message.reply('in handle loop');
         if (message.author.username !== this.bot.user.username) {
             if (message.content.startsWith('!commands')) {
                 message.author.send(Util.commandsList());
