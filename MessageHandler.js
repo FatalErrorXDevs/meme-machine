@@ -90,6 +90,7 @@ class MessageHandler {
                         let prefixlist = sounds.filter((play) => play.includes(sound + '_'));
                         let random = prefixlist[Math.floor(Math.random() * prefixlist.length)];
                         this.bot.addToQueue(voiceChannel, random, message);
+                        message.reply("now playing " + sound);
                         if (this.bot.voiceConnections.array().length === 0) this.bot.playSoundQueue();
                         message.delete();
                         return;
