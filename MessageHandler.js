@@ -7,7 +7,6 @@ class MessageHandler {
     }
 
     handle(message) {
-        message.reply('in handle loop');
         if (message.author.username !== this.bot.user.username) {
             if (message.content.startsWith('!commands')) {
                 message.author.send(Util.commandsList());
@@ -98,6 +97,7 @@ class MessageHandler {
                     }
                     if (sounds.includes(sound)) {
                         this.bot.addToQueue(voiceChannel, sound, message);
+                        message.reply("now playing " + sound);
                         if (this.bot.voiceConnections.array().length === 0) this.bot.playSoundQueue();
                         message.delete();
                         return;
